@@ -10,7 +10,7 @@ datasource db {
 model Inventory {
   id        String    @id @default(cuid())
   sku       String    @unique
-  productID String    @unique
+  productId String    @unique
   quantity  Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -18,8 +18,8 @@ model Inventory {
 }
 
 enum ActionType {
-  In
-  Out
+  IN
+  OUT
 }
 
 model History {
@@ -28,6 +28,7 @@ model History {
   quantityChanged Int
   lastQuantity    Int
   newQuantity     Int
-  inventory       Inventory  @relation(fields: [inventoryId], references: [id])
+  inventory       Inventory  @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
   inventoryId     String
+  createdAt       DateTime   @default(now())
 }
